@@ -14,14 +14,19 @@ class Product:
 
     @classmethod
     def new_product(cls, product_data: dict):
-        return cls(product_data['name'], product_data['description'], product_data['price'], product_data['quantity'])
+        return cls(
+            product_data["name"],
+            product_data["description"],
+            product_data["price"],
+            product_data["quantity"],
+        )
 
     @property
     def price(self) -> float:
         return self.__price
 
     @price.setter
-    def price (self, new_price: float):
+    def price(self, new_price: float):
         self.__price = float(new_price)
 
 
@@ -48,7 +53,7 @@ class Category:
 
     @property
     def products(self):
-        product_sring = ''
+        product_sring = ""
         for product in self.__products:
-            product_sring += f'{product.name}, {product.price} руб. Остаток: {product.quantity} шт.\n'
+            product_sring += f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт.\n"
         return product_sring
