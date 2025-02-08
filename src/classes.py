@@ -27,7 +27,10 @@ class Product:
 
     @price.setter
     def price(self, new_price: float):
-        self.__price = float(new_price)
+        if new_price > 0:
+            self.__price = float(new_price)
+        else:
+            print("Цена не должна быть нулевая или отрицательная")
 
 
 class Category:
@@ -48,8 +51,9 @@ class Category:
         Category.category_count += 1
 
     def add_product(self, products):
-        self.__products.append(products)
-        Category.product_count += 1
+        if isinstance(products, Product):
+            self.__products.append(products)
+            Category.product_count += 1
 
     @property
     def products(self):
