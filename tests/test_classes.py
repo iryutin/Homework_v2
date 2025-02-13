@@ -3,11 +3,15 @@ import pytest
 from src.classes import Category, Product
 
 
-def test_product(product_samsung):
+def test_product(product_samsung, product_iphone, capsys):
     """Тест класса продукт"""
     assert product_samsung.name == "Samsung Galaxy S23 Ultra"
     assert product_samsung.description == "256GB, Серый цвет, 200MP камера"
     assert product_samsung.price == 180000.0
+    print(product_samsung)
+    captured = capsys.readouterr()
+    assert captured.out == "Samsung Galaxy S23 Ultra, 180000.0 руб. Остаток: 5 шт.\n"
+    assert product_samsung + product_iphone == 2580000.0
     product_samsung.price = 1
     assert product_samsung.price == 1.0
     assert product_samsung.quantity == 5
@@ -32,3 +36,6 @@ def test_category(product_samsung, product_iphone, categori_smartfone, capsys):
         captured.out
         == 'Samsung Galaxy S23 Ultra, 180000.0 руб. Остаток: 5 шт.\nIphone 15, 210000.0 руб. Остаток: 8 шт.\n55" QLED 4K, 123000.0 руб. Остаток: 7 шт.\n\n'
     )
+    print(categori_smartfone)
+    captured = capsys.readouterr()
+    assert captured.out == "Смартфоны, количество продуктов: 20 шт.\n"
