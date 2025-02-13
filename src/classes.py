@@ -3,14 +3,34 @@ class Product:
 
     name: str
     description: str
-    price: float
+    __price: float
     quantity: int
 
     def __init__(self, name, description, price, quantity):
         self.name = name
         self.description = description
-        self.price = price
+        self.__price = price
         self.quantity = quantity
+
+    @classmethod
+    def new_product(cls, product_data: dict):
+        return cls(
+            product_data["name"],
+            product_data["description"],
+            product_data["price"],
+            product_data["quantity"],
+        )
+
+    @property
+    def price(self) -> float:
+        return self.__price
+
+    @price.setter
+    def price(self, new_price: float):
+        if new_price > 0:
+            self.__price = float(new_price)
+        else:
+            print("Цена не должна быть нулевая или отрицательная")
 
 
 class Category:
@@ -19,13 +39,25 @@ class Category:
 
     name: str
     description: str
-    products: list
+    __products: list
     category_count: int = 0
     product_count: int = 0
 
     def __init__(self, name, description, products):
         self.name = name
         self.description = description
-        self.products = products
+        self.__products = products
         Category.product_count += len(products)
         Category.category_count += 1
+
+    def add_product(self, products):
+        if isinstance(products, Product):
+            self.__products.append(products)
+            Category.product_count += 1
+
+    @property
+    def products(self):
+        product_sring = ""
+        for product in self.__products:
+            product_sring += f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт.\n"
+        return product_sring
