@@ -1,6 +1,6 @@
 import pytest
 
-from src.classes import Category, Product
+from src.classes import Category, LawnGrass, Product, Smartphone
 
 
 def test_product(product_samsung, product_iphone, capsys):
@@ -39,3 +39,16 @@ def test_category(product_samsung, product_iphone, categori_smartfone, capsys):
     print(categori_smartfone)
     captured = capsys.readouterr()
     assert captured.out == "Смартфоны, количество продуктов: 20 шт.\n"
+
+
+def test_smartfone_and_trava_summ(smartphone1, grass1):
+    with pytest.raises(TypeError):
+        invalid_sum = smartphone1 + grass1
+
+
+def test_not_a_product(smartphone1):
+    category_smartphones = Category(
+        "Смартфоны", "Высокотехнологичные смартфоны", [smartphone1]
+    )
+    with pytest.raises(TypeError):
+        category_smartphones.add_product("Not a product")
