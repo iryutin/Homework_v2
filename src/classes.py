@@ -32,6 +32,13 @@ class Product:
         else:
             print("Цена не должна быть нулевая или отрицательная")
 
+    def __str__(self):
+        return f"{self.name}, {self.__price} руб. Остаток: {self.quantity} шт."
+
+    def __add__(self, other):
+        if isinstance(other, Product):
+            return self.price * self.quantity + other.price * other.quantity
+
 
 class Category:
     """Класс категории с именем описанием списком продуктов,
@@ -61,3 +68,9 @@ class Category:
         for product in self.__products:
             product_sring += f"{product.name}, {product.price} руб. Остаток: {product.quantity} шт.\n"
         return product_sring
+
+    def __str__(self):
+        count = 0
+        for product in self.__products:
+            count += product.quantity
+        return f"{self.name}, количество продуктов: {count} шт."
