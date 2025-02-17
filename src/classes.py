@@ -81,6 +81,7 @@ class Category:
 
 
 class Smartphone(Product):
+    """Класс продукта смартфоны"""
     def __init__(
         self, name, description, price, quantity, efficiency, model, memory, color
     ):
@@ -92,6 +93,7 @@ class Smartphone(Product):
 
 
 class LawnGrass(Product):
+    """Класс продукта газонная трава"""
     def __init__(
         self, name, description, price, quantity, country, germination_period, color
     ):
