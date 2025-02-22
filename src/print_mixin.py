@@ -1,4 +1,5 @@
 class PrintMixin:
+    """Печатает свойства продукта при его создании"""
 
     def __init__(self):
         print(repr(self))
