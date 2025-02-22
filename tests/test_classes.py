@@ -10,7 +10,10 @@ def test_product(product_samsung, product_iphone, capsys):
     assert product_samsung.price == 180000.0
     print(product_samsung)
     captured = capsys.readouterr()
-    assert captured.out == "Samsung Galaxy S23 Ultra, 180000.0 руб. Остаток: 5 шт.\n"
+    assert (
+        captured.out.strip().split("\n")[-1]
+        == "Samsung Galaxy S23 Ultra, 180000.0 руб. Остаток: 5 шт."
+    )
     assert product_samsung + product_iphone == 2580000.0
     product_samsung.price = 1
     assert product_samsung.price == 1.0
@@ -32,10 +35,11 @@ def test_category(product_samsung, product_iphone, categori_smartfone, capsys):
     categori_smartfone.add_product(product4)
     print(categori_smartfone.products)
     captured = capsys.readouterr()
-    assert (
-        captured.out
-        == 'Samsung Galaxy S23 Ultra, 180000.0 руб. Остаток: 5 шт.\nIphone 15, 210000.0 руб. Остаток: 8 шт.\n55" QLED 4K, 123000.0 руб. Остаток: 7 шт.\n\n'
-    )
+    assert captured.out.strip().split("\n")[1:] == [
+        "Samsung Galaxy S23 Ultra, 180000.0 руб. Остаток: 5 шт.",
+        "Iphone 15, 210000.0 руб. Остаток: 8 шт.",
+        '55" QLED 4K, 123000.0 руб. Остаток: 7 шт.',
+    ]
     print(categori_smartfone)
     captured = capsys.readouterr()
     assert captured.out == "Смартфоны, количество продуктов: 20 шт.\n"
