@@ -1,4 +1,5 @@
 def test_printmixin(capsys, product_samsung):
+    """Печатает свойства продукта при его создании"""
     print(product_samsung)
     captured = capsys.readouterr()
     assert (
