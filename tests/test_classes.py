@@ -43,6 +43,8 @@ def test_category(product_samsung, product_iphone, categori_smartfone, capsys):
     print(categori_smartfone)
     captured = capsys.readouterr()
     assert captured.out == "Смартфоны, количество продуктов: 20 шт.\n"
+    category_empty = Category("Пустая категория", "Категория без продуктов", [])
+    assert category_empty.middle_price() == 0
 
 
 def test_smartfone_and_trava_summ(smartphone1, grass1):
@@ -56,3 +58,8 @@ def test_not_a_product(smartphone1):
     )
     with pytest.raises(TypeError):
         category_smartphones.add_product("Not a product")
+
+
+def teat_exeption_product():
+    with pytest.raises(ValueError):
+        product_invalid = Product("Бракованный товар", "Неверное количество", 1000.0, 0)

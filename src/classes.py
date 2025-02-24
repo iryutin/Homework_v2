@@ -42,7 +42,11 @@ class Product(BaseProduct, PrintMixin):
         self.name = name
         self.description = description
         self.__price = price
-        self.quantity = quantity
+        if quantity <= 0:
+            raise ValueError("Товар с нулевым количеством не может быть добавлен")
+            pass
+        else:
+            self.quantity = quantity
         super().__init__()
 
     @classmethod
@@ -98,6 +102,18 @@ class Category:
             Category.product_count += 1
         else:
             raise TypeError
+
+    def middle_price(self):
+        all_price = 0
+        middle = 0
+        for product in self.__products:
+            all_price += product.price
+        try:
+            middle = all_price / len(self.__products)
+        except ZeroDivisionError:
+            return 0
+        else:
+            return middle
 
     @property
     def products(self):
