@@ -1,16 +1,49 @@
-class Product:
-    """Класс продукты с именем описанием ценой и колличеством на складе"""
+from abc import ABC, abstractmethod
+
+from src.print_mixin import PrintMixin
+
+
+class BaseProduct(ABC):
+    """Базовый класс для продуктов"""
 
     name: str
     description: str
     __price: float
     quantity: int
 
+    @classmethod
+    @abstractmethod
+    def new_product(cls, *args, **kwargs):
+        pass
+
+    @property
+    @abstractmethod
+    def price(self) -> float:
+        pass
+
+    @price.setter
+    @abstractmethod
+    def price(self, *args: float):
+        pass
+
+    @abstractmethod
+    def __str__(self):
+        pass
+
+    @abstractmethod
+    def __add__(self, other):
+        pass
+
+
+class Product(BaseProduct, PrintMixin):
+    """Класс продукты с именем описанием ценой и колличеством на складе"""
+
     def __init__(self, name, description, price, quantity):
         self.name = name
         self.description = description
         self.__price = price
         self.quantity = quantity
+        super().__init__()
 
     @classmethod
     def new_product(cls, product_data: dict):
@@ -82,6 +115,7 @@ class Category:
 
 class Smartphone(Product):
     """Класс продукта смартфоны"""
+
     def __init__(
         self, name, description, price, quantity, efficiency, model, memory, color
     ):
@@ -94,6 +128,7 @@ class Smartphone(Product):
 
 class LawnGrass(Product):
     """Класс продукта газонная трава"""
+
     def __init__(
         self, name, description, price, quantity, country, germination_period, color
     ):
